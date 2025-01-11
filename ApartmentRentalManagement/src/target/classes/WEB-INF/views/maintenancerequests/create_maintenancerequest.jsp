@@ -1,0 +1,47 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Maintenance Request</title>
+</head>
+<body>
+    <h1>Create a New Maintenance Request</h1>
+
+    <form action="${pageContext.request.contextPath}/maintenancerequest/create" method="post">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+        <div>
+            <label for="apartment">Select Apartment:</label>
+            <select id="apartment" name="apartmentId" required>
+                <option value="">Select an Apartment</option>
+                <c:forEach var="apartment" items="${apartments}">
+                    <option value="${apartment.id}">
+                        ${apartment.name} (${apartment.address})
+                    </option>
+                </c:forEach>
+            </select>
+        </div>
+
+        <div>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4" cols="50" required></textarea>
+        </div>
+
+        <div>
+            <button type="submit">Submit Request</button>
+        </div>
+    </form>
+
+    <br>
+    <a href="${pageContext.request.contextPath}/admin/maintenancerequests">Back to Maintenance Requests</a>
+    
+    <footer>
+        <form action="${pageContext.request.contextPath}/logout" method="post">
+    		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    		<button type="submit">Logout</button>
+		</form>
+    </footer>
+</body>
+</html>
